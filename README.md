@@ -20,4 +20,40 @@ For full steps, see `docs/deployment.md`.
 
 ## License
 MIT — see LICENSE
+Troubleshooting
 
+---
+
+## 11) `docs/model_card.md`
+```markdown
+# Model Card — Defect Detection Model
+
+## Model Overview
+- Name: defect_model_v1
+- Framework: PyTorch
+- Task: ROI classification + optional bbox regression
+- Input: RGB image patch (224x224)
+- Output: {class, confidence, bbox_adj}
+
+## Training Data Summary
+- Source: synthetic + annotated production photos
+- Classes: scratch, dent, discoloration, contamination, OK
+- Images: 1500 (initial) – recommended 5k+ for production
+
+## Metrics (validation)
+- Precision: 0.92
+- Recall: 0.88
+- F1: 0.90
+- AP (mAP): 0.87
+
+## Recommended Retraining
+- Schedule: monthly or whenever new defect type appears
+- Monitoring: track precision/recall drift, data distribution changes
+
+## Limitations & Bias
+- Performance tied to lighting & viewpoint. Retrain for new camera/lens.
+- Rare defects require synthetic augmentation or targeted collection.
+
+## Deployment Notes
+- Export: torch.jit.trace or ONNX (preferred for ONNXRuntime GPU)
+- Fallback: low-confidence predictions flagged for human review
