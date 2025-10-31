@@ -1,16 +1,16 @@
-# mv-production-line-deploy
+ mv-production-line-deploy
 
 Production-ready deployment artifacts for the Machine Vision Production Line (camera acquisition → traditional CV screening → DL inference → API/MQ output).
 
 This repo contains deployment scripts, Docker configs, systemd templates, and operational documentation suitable for uploading to GitHub and handing to DevOps/Engineering teams.
 
-## Contents
+ Contents
 - `docker/` — docker-compose and Dockerfiles (inference + api)
 - `deploy/` — installation and systemd/service templates
 - `docs/` — deployment runbook, user manual, model card, test report template
 - `config/` — example configuration
 
-## Quick start (single-server GPU)
+ Quick start (single-server GPU)
 1. Put credentials & config into `config/app_config.yml` (copy `config/app_config.example.yml`).
 2. Install NVIDIA driver + Docker + nvidia-container-toolkit (see `deploy/install-cuda-ubuntu.sh`).
 3. `cd docker && docker-compose up --build -d`
@@ -18,13 +18,13 @@ This repo contains deployment scripts, Docker configs, systemd templates, and op
 
 For full steps, see `docs/deployment.md`.
 
-## License
+ License
 MIT — see LICENSE
 Troubleshooting
 
 ---
 
-## 11) `docs/model_card.md`
+ 11) `docs/model_card.md`
 ```markdown
 # Model Card — Defect Detection Model
 
@@ -57,3 +57,21 @@ Troubleshooting
 ## Deployment Notes
 - Export: torch.jit.trace or ONNX (preferred for ONNXRuntime GPU)
 - Fallback: low-confidence predictions flagged for human review
+This deliverable is focused on production deployment artifacts + docs It does not include the full inference codebase or pre-trained models — those are project-specific and you should add them under /inference and /models respectively
+Core Features
+
+Multi-camera acquisition with synchronous or near-real-time triggering
+
+Device management interface (add/remove cameras)
+
+Dual detection core:
+
+Traditional: edge/texture/pattern detection (OpenCV)
+
+AI module: CNN-based classifier/detector for subtle defects (PyTorch/TensorFlow)
+
+Unified results: (coordinates, defect_type, confidence)
+
+Continuous thread-safe processing pipeline
+
+Local API / Message Queue output (FastAPI + RabbitMQ supported)
