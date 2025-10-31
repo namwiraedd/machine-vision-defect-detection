@@ -1,0 +1,9 @@
+torch
+torchvision
+onnxruntime-gpu
+opencv-python-headless
+numpy
+pydantic
+uvicorn
+fastapi
+protobuf
