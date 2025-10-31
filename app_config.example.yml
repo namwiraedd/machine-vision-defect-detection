@@ -1,0 +1,29 @@
+# Example config. Copy to app_config.yml and edit.
+cameras:
+  # camera_id: adapter_type, params
+  cam_01:
+    adapter: opencv
+    source: 0
+  cam_02:
+    adapter: basler
+    ip: 192.168.1.10
+    trigger: hardware
+
+inference:
+  model_path: /app/models/defect_model.pt
+  device: cuda
+  batch_size: 8
+  confidence_threshold: 0.5
+
+api:
+  host: 0.0.0.0
+  port: 8000
+  auth_token: "REPLACE_WITH_SECURE_TOKEN"
+
+mq:
+  type: zmq
+  zmq_pub_address: tcp://0.0.0.0:5556
+
+logging:
+  level: INFO
+  output: /var/log/mv-production.log
