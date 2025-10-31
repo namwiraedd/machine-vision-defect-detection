@@ -76,7 +76,7 @@ Continuous thread-safe processing pipeline
 
 Local API / Message Queue output (FastAPI + RabbitMQ supported)
 # 1. Clone the repo
-git clone https://github.com/<your-username>/machine-vision-defect-detection.git
+git clone https://github.com/namwiraedd/machine-vision-defect-detection.git
 cd machine-vision-defect-detection
 
 # 2. Create a virtual environment
