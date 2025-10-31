@@ -92,3 +92,32 @@ nano config/model_config.yaml
 
 # 5. Run the main system
 python src/main.py
+Example Workflow
+Cameras are initialized and synchronized (multi_camera_trigger.py)
+
+Each frame enters a thread-safe queue (image_buffer.py)
+
+Traditional and AI modules process the image in parallel
+
+fusion_module.py merges the detections
+
+Unified results are sent to the API endpoint or message queue
+
+Logs and inference metrics are stored locally
+Model Training
+
+Use the sample dataset in data/sample_dataset/ to train your custom model:python models/training_script.py --data data/sample_dataset --epochs 50 --output models/trained_model.pt
+output format
+{
+  "timestamp": "2025-10-31T10:03:21Z",
+  "camera_id": "CAM_001",
+  "defects": [
+    {
+      "type": "scratch",
+      "coordinates": [220, 145, 310, 180],
+      "confidence": 0.93
+    }
+  ]
+}
+
+
