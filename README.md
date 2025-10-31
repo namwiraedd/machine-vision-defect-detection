@@ -75,3 +75,20 @@ Unified results: (coordinates, defect_type, confidence)
 Continuous thread-safe processing pipeline
 
 Local API / Message Queue output (FastAPI + RabbitMQ supported)
+# 1. Clone the repo
+git clone https://github.com/<your-username>/machine-vision-defect-detection.git
+cd machine-vision-defect-detection
+
+# 2. Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # (on Windows: venv\Scripts\activate)
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Configure cameras & models
+nano config/cameras.yaml
+nano config/model_config.yaml
+
+# 5. Run the main system
+python src/main.py
