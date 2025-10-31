@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    image: mv-production-api:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - CONFIG_PATH=/app/config/app_config.yml
+    volumes:
+      - ../config:/app/config:ro
+    depends_on:
+      - inference
+    restart: unless-stopped
+
+  inference:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.inference
+    image: mv-production-inference:latest
+    deploy:
+      resources:
+        limits:
+          memory: 24G
+    volumes:
+      - ../models:/app/models:ro
+      - ../config:/app/config:ro
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CONFIG_PATH=/app/config/app_config.yml
+    runtime: nvidia
+    restart: unless-stopped
